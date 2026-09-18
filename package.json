@@ -1,0 +1,18 @@
+{
+  "name": "lutload-neobrutalist-downloader",
+  "version": "1.0.0",
+  "private": true,
+  "description": "LUTLOAD neo-brutalist TikTok & Instagram downloader for Vercel.",
+  "main": "api/tiktok.js",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "vercel dev",
+    "check": "node --check config.js && node --check api/tiktok.js && node --check api/instagram.js && node --check api/telegram.js && node --check api/setup-telegram.js && node --check api/status.js && node --check api/_lib/control.js && node --check app.js"
+  },
+  "engines": {
+    "node": "22.x"
+  },
+  "dependencies": {
+    "axios": "^1.11.0"
+  }
+}
