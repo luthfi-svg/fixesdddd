@@ -46,9 +46,6 @@ instagram: {
   title: 'Instagram downloader',
   subtitle: 'Layanan Instagram sementara tidak tersedia.',
   hint: 'Instagram Downloader sedang mengalami gangguan.',
-  disabled: true,
-  disabledMessage:
-    'Instagram Downloader sedang mengalami gangguan dan sementara tidak dapat digunakan. Silakan coba kembali nanti.'
 };
 
 function escapeHtml(value) {
