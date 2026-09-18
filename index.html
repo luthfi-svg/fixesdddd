@@ -26,14 +26,19 @@
       --radius: 18px;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--ink);
       background:
         radial-gradient(circle at 8% 12%, rgba(255,255,255,.22) 0 7%, transparent 7.2%),
@@ -42,9 +47,15 @@
       overflow-x: hidden;
     }
 
-    button, input, select { font: inherit; }
+    button,
+    input,
+    select {
+      font: inherit;
+    }
 
-    a { color: inherit; }
+    a {
+      color: inherit;
+    }
 
     .app-shell {
       width: min(1180px, calc(100% - 28px));
@@ -137,7 +148,10 @@
       transition: transform .15s ease, box-shadow .15s ease;
     }
 
-    .icon-btn:hover { transform: translate(-1px, -1px); }
+    .icon-btn:hover {
+      transform: translate(-1px, -1px);
+    }
+
     .icon-btn:active {
       transform: translate(3px, 3px);
       box-shadow: 0 0 0 var(--ink);
@@ -280,9 +294,17 @@
       display: block;
     }
 
-    .mini-dots span:nth-child(1) { background: var(--coral); }
-    .mini-dots span:nth-child(2) { background: var(--yellow); }
-    .mini-dots span:nth-child(3) { background: var(--lime); }
+    .mini-dots span:nth-child(1) {
+      background: var(--coral);
+    }
+
+    .mini-dots span:nth-child(2) {
+      background: var(--yellow);
+    }
+
+    .mini-dots span:nth-child(3) {
+      background: var(--lime);
+    }
 
     .preview-media {
       flex: 1;
@@ -367,7 +389,10 @@
       transition: .16s ease;
     }
 
-    .tab:hover { transform: translateY(-2px); }
+    .tab:hover {
+      transform: translateY(-2px);
+    }
+
     .tab.active {
       background: var(--lime);
       transform: translate(2px, 2px);
@@ -478,12 +503,24 @@
       position: absolute;
       inset: 0;
       transform: translateX(-130%);
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.38), transparent);
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.38),
+        transparent
+      );
       transition: transform .5s ease;
     }
 
-    .download-btn:hover::after { transform: translateX(130%); }
-    .download-btn:hover { filter: brightness(1.06); transform: translateY(-2px); }
+    .download-btn:hover::after {
+      transform: translateX(130%);
+    }
+
+    .download-btn:hover {
+      filter: brightness(1.06);
+      transform: translateY(-2px);
+    }
+
     .download-btn:active {
       transform: translate(4px, 4px);
       box-shadow: 0 0 0 var(--ink);
@@ -494,7 +531,10 @@
       opacity: .72;
     }
 
-    .download-btn .btn-text { position: relative; z-index: 1; }
+    .download-btn .btn-text {
+      position: relative;
+      z-index: 1;
+    }
 
     .hint-row {
       display: flex;
@@ -647,7 +687,9 @@
       transition: transform .14s ease;
     }
 
-    .download-option:hover { transform: translate(-2px, -2px); }
+    .download-option:hover {
+      transform: translate(-2px, -2px);
+    }
 
     .download-option strong {
       display: block;
@@ -737,7 +779,9 @@
       background: rgba(255,255,255,.34);
     }
 
-    .history-item:last-child { border-bottom: 0; }
+    .history-item:last-child {
+      border-bottom: 0;
+    }
 
     .history-item strong {
       font-size: 12px;
@@ -817,7 +861,9 @@
       backdrop-filter: blur(7px);
     }
 
-    .closed-overlay.show { display: grid; }
+    .closed-overlay.show {
+      display: grid;
+    }
 
     .closed-box {
       width: min(620px, 100%);
@@ -876,62 +922,20 @@
     }
 
     @keyframes reveal {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; }
-      .preview-zone {
-        border-left: 0;
-        border-top: 3px solid var(--ink);
-      }
-      .result-main { grid-template-columns: 1fr; }
-      .cover { min-height: 240px; }
-      .cover img, .cover-fallback { min-height: 240px; }
-    }
-
-    @media (max-width: 700px) {
-      .app-shell {
-        width: min(100% - 14px, 1180px);
-        margin: 10px auto 20px;
+      from {
+        opacity: 0;
+        transform: translateY(8px);
       }
 
-      .browser { border-radius: 19px; box-shadow: 6px 6px 0 var(--ink); }
-      .browser-bar { align-items: flex-start; }
-      .top-actions { gap: 7px; }
-      .badge { font-size: 10px; }
-      .brand-copy span { display: none; }
-
-      .hero-copy {
-        min-height: auto;
-        padding: 28px 22px 30px;
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
-
-      .preview-zone {
-        min-height: 330px;
-        padding: 12px;
-      }
-
-      .workspace { padding: 13px; }
-      .input-row { grid-template-columns: 1fr; }
-      .paste-btn { min-width: 86px; }
-      .download-options { grid-template-columns: 1fr; }
-      .images-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
 
-    @media (max-width: 460px) {
-      h1 { font-size: 40px; }
-      .section-head h2 { font-size: 23px; }
-      .tabs { gap: 7px; }
-      .tab { flex: 1 1 calc(50% - 7px); text-align: center; }
-      .input-shell { flex-direction: column; gap: 7px; }
-      .url-input, .paste-btn { border-radius: 11px; border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); min-height: 52px; }
-      .result-main { padding: 11px; }
-      .downloads { padding: 12px 11px; }
-      .images-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .footer { padding: 13px 14px; }
-    }
+    /* =========================
+       TIKTOK STALKER
+    ========================== */
 
     .stalker-card {
       border: 3px solid var(--ink);
@@ -969,9 +973,24 @@
       font-weight: 1000;
     }
 
-    .stalker-identity { min-width: 0; flex: 1; }
-    .stalker-name { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .stalker-name h3 { margin: 0; font-size: clamp(22px, 4vw, 34px); line-height: 1; }
+    .stalker-identity {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .stalker-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .stalker-name h3 {
+      margin: 0;
+      font-size: clamp(22px, 4vw, 34px);
+      line-height: 1;
+    }
+
     .verified-badge {
       display: inline-grid;
       place-items: center;
@@ -983,8 +1002,20 @@
       border: 2px solid var(--ink);
       font-weight: 1000;
     }
-    .stalker-username { margin-top: 8px; font-weight: 900; opacity: .72; }
-    .stalker-identity p { margin: 12px 0 0; max-width: 700px; line-height: 1.55; white-space: pre-wrap; word-break: break-word; }
+
+    .stalker-username {
+      margin-top: 8px;
+      font-weight: 900;
+      opacity: .72;
+    }
+
+    .stalker-identity p {
+      margin: 12px 0 0;
+      max-width: 700px;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
 
     .stalker-stats {
       display: grid;
@@ -992,12 +1023,38 @@
       border-top: 3px solid var(--ink);
       border-bottom: 3px solid var(--ink);
     }
-    .stalker-stat { padding: 16px 10px; text-align: center; border-right: 3px solid var(--ink); }
-    .stalker-stat:last-child { border-right: 0; }
-    .stalker-stat strong { display: block; font-size: 20px; font-weight: 1000; }
-    .stalker-stat span { display: block; margin-top: 4px; font-size: 10px; font-weight: 1000; letter-spacing: .08em; opacity: .65; }
 
-    .stalker-actions { padding: 16px 22px; display: flex; gap: 10px; }
+    .stalker-stat {
+      padding: 16px 10px;
+      text-align: center;
+      border-right: 3px solid var(--ink);
+    }
+
+    .stalker-stat:last-child {
+      border-right: 0;
+    }
+
+    .stalker-stat strong {
+      display: block;
+      font-size: 20px;
+      font-weight: 1000;
+    }
+
+    .stalker-stat span {
+      display: block;
+      margin-top: 4px;
+      font-size: 10px;
+      font-weight: 1000;
+      letter-spacing: .08em;
+      opacity: .65;
+    }
+
+    .stalker-actions {
+      padding: 16px 22px;
+      display: flex;
+      gap: 10px;
+    }
+
     .stalker-open {
       display: inline-flex;
       align-items: center;
@@ -1013,7 +1070,11 @@
       box-shadow: 4px 4px 0 var(--ink);
       transition: transform .12s ease, box-shadow .12s ease;
     }
-    .stalker-open:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+
+    .stalker-open:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--ink);
+    }
 
     .stalker-hero {
       width: 100%;
@@ -1026,30 +1087,219 @@
       text-align: center;
       gap: 9px;
     }
-    .stalker-hero img { width: 118px; height: 118px; object-fit: cover; border: 4px solid var(--ink); border-radius: 50%; box-shadow: var(--shadow-sm); }
-    .stalker-hero span { font-size: 11px; font-weight: 1000; letter-spacing: .1em; opacity: .65; }
-    .stalker-hero strong { font-size: 22px; }
+
+    .stalker-hero img {
+      width: 118px;
+      height: 118px;
+      object-fit: cover;
+      border: 4px solid var(--ink);
+      border-radius: 50%;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stalker-hero span {
+      font-size: 11px;
+      font-weight: 1000;
+      letter-spacing: .1em;
+      opacity: .65;
+    }
+
+    .stalker-hero strong {
+      font-size: 22px;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================== */
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .preview-zone {
+        border-left: 0;
+        border-top: 3px solid var(--ink);
+      }
+
+      .result-main {
+        grid-template-columns: 1fr;
+      }
+
+      .cover {
+        min-height: 240px;
+      }
+
+      .cover img,
+      .cover-fallback {
+        min-height: 240px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .app-shell {
+        width: min(100% - 14px, 1180px);
+        margin: 10px auto 20px;
+      }
+
+      .browser {
+        border-radius: 19px;
+        box-shadow: 6px 6px 0 var(--ink);
+      }
+
+      .browser-bar {
+        align-items: flex-start;
+      }
+
+      .top-actions {
+        gap: 7px;
+      }
+
+      .badge {
+        font-size: 10px;
+      }
+
+      .brand-copy span {
+        display: none;
+      }
+
+      .hero-copy {
+        min-height: auto;
+        padding: 28px 22px 30px;
+      }
+
+      .preview-zone {
+        min-height: 330px;
+        padding: 12px;
+      }
+
+      .workspace {
+        padding: 13px;
+      }
+
+      .input-row {
+        grid-template-columns: 1fr;
+      }
+
+      .paste-btn {
+        min-width: 86px;
+      }
+
+      .download-options {
+        grid-template-columns: 1fr;
+      }
+
+      .images-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
 
     @media (max-width: 680px) {
-      .stalker-profile { align-items: flex-start; padding: 16px; gap: 13px; }
-      .stalker-avatar-wrap, .stalker-avatar { width: 78px; height: 78px; flex-basis: 78px; }
-      .stalker-name h3 { font-size: 21px; }
-      .stalker-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .stalker-stat:nth-child(3) { border-right: 0; }
-      .stalker-stat:nth-child(-n+3) { border-bottom: 3px solid var(--ink); }
-      .stalker-stat strong { font-size: 17px; }
-      .stalker-stat span { font-size: 9px; }
-      .stalker-actions { padding: 14px 16px; }
-      .stalker-open { width: 100%; }
+      .stalker-profile {
+        align-items: flex-start;
+        padding: 16px;
+        gap: 13px;
+      }
+
+      .stalker-avatar-wrap,
+      .stalker-avatar {
+        width: 78px;
+        height: 78px;
+        flex-basis: 78px;
+      }
+
+      .stalker-name h3 {
+        font-size: 21px;
+      }
+
+      .stalker-stats {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .stalker-stat:nth-child(3) {
+        border-right: 0;
+      }
+
+      .stalker-stat:nth-child(-n+3) {
+        border-bottom: 3px solid var(--ink);
+      }
+
+      .stalker-stat strong {
+        font-size: 17px;
+      }
+
+      .stalker-stat span {
+        font-size: 9px;
+      }
+
+      .stalker-actions {
+        padding: 14px 16px;
+      }
+
+      .stalker-open {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 460px) {
+      h1 {
+        font-size: 40px;
+      }
+
+      .section-head h2 {
+        font-size: 23px;
+      }
+
+      .tabs {
+        gap: 7px;
+      }
+
+      .tab {
+        flex: 1 1 calc(50% - 7px);
+        text-align: center;
+      }
+
+      .input-shell {
+        flex-direction: column;
+        gap: 7px;
+      }
+
+      .url-input,
+      .paste-btn {
+        border-radius: 11px;
+        border: 3px solid var(--ink);
+        box-shadow: 4px 4px 0 var(--ink);
+        min-height: 52px;
+      }
+
+      .result-main {
+        padding: 11px;
+      }
+
+      .downloads {
+        padding: 12px 11px;
+      }
+
+      .images-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .footer {
+        padding: 13px 14px;
+      }
     }
   </style>
 </head>
+
 <body>
+
   <div class="app-shell">
     <main class="browser">
+
       <header class="browser-bar">
         <div class="brand">
           <div class="brand-mark">LL</div>
+
           <div class="brand-copy">
             <strong>LUTLOAD</strong>
             <span>NEO BRUTALIST MEDIA LAB</span>
@@ -1057,18 +1307,38 @@
         </div>
 
         <div class="top-actions">
-          <div class="badge" id="platformBadge">TIKTOK READY</div>
-          <button class="icon-btn" id="historyBtn" type="button" title="Lihat riwayat">↺</button>
+          <div class="badge" id="platformBadge">
+            TIKTOK READY
+          </div>
+
+          <button
+            class="icon-btn"
+            id="historyBtn"
+            type="button"
+            title="Lihat riwayat"
+          >
+            ↺
+          </button>
         </div>
       </header>
 
       <section class="hero">
+
         <div class="hero-copy">
-          <div class="eyebrow">DOWNLOAD WITHOUT THE BORING</div>
-          <h1>Drop link.<br>Get media.</h1>
+
+          <div class="eyebrow">
+            DOWNLOAD WITHOUT THE BORING
+          </div>
+
+          <h1>
+            Drop link.<br>
+            Get media.
+          </h1>
+
           <p class="hero-desc">
-            Pengunduh TikTok dan Instagram dengan tampilan neo-brutalist,
-            video player bawaan, riwayat lokal, dan kontrol website dari bot Telegram.
+            Pengunduh TikTok dengan tampilan neo-brutalist,
+            video player bawaan, riwayat lokal, dan TikTok Stalker
+            untuk melihat informasi profil.
           </p>
 
           <div class="hero-chip-row">
@@ -1076,107 +1346,269 @@
             <span class="chip">VIDEO PLAYER</span>
             <span class="chip">MOBILE READY</span>
           </div>
+
         </div>
 
         <div class="preview-zone">
+
           <div class="preview-card">
+
             <div class="preview-top">
+
               <div class="mini-dots">
-                <span></span><span></span><span></span>
+                <span></span>
+                <span></span>
+                <span></span>
               </div>
-              <span>MEDIA PREVIEW / READY</span>
+
+              <span>
+                MEDIA PREVIEW / READY
+              </span>
+
             </div>
 
-            <div class="preview-media" id="heroPreview">
+            <div
+              class="preview-media"
+              id="heroPreview"
+            >
+
               <div class="preview-placeholder">
-                <div class="big-icon">▶</div>
-                <strong>Paste a social link</strong>
-                <span>Video yang berhasil ditemukan akan tampil di player ini.</span>
+
+                <div class="big-icon">
+                  ▶
+                </div>
+
+                <strong>
+                  Paste a social link
+                </strong>
+
+                <span>
+                  Video yang berhasil ditemukan
+                  akan tampil di player ini.
+                </span>
+
               </div>
+
             </div>
+
           </div>
+
         </div>
+
       </section>
 
       <section class="workspace">
+
         <div class="tabs">
-          <button class="tab active" data-platform="tiktok" type="button">TIKTOK</button>
-          <button class="tab" data-platform="stalktt" type="button">STALK TIKTOK</button>
+
+          <button
+            class="tab active"
+            data-platform="tiktok"
+            type="button"
+          >
+            TIKTOK
+          </button>
+
+          <button
+            class="tab"
+            data-platform="stalktt"
+            type="button"
+          >
+            STALK TIKTOK
+          </button>
+
         </div>
 
         <div class="downloader">
+
           <div class="section-head">
+
             <div>
-              <h2 id="formTitle">TikTok downloader</h2>
-              <p id="formSubtitle">Tempel link video / slide TikTok di bawah.</p>
+
+              <h2 id="formTitle">
+                TikTok downloader
+              </h2>
+
+              <p id="formSubtitle">
+                Tempel link video / slide TikTok di bawah.
+              </p>
+
             </div>
-            <div class="status-pill" id="siteStatus">SYSTEM: CHECKING...</div>
+
+            <div
+              class="status-pill"
+              id="siteStatus"
+            >
+              SYSTEM: CHECKING...
+            </div>
+
           </div>
 
           <form id="downloadForm">
+
             <div class="input-row">
+
               <div class="input-shell">
+
+                <!--
+                  PENTING:
+                  type=text sengaja digunakan sebagai default.
+                  app.js akan mengubahnya menjadi:
+                  URL untuk TikTok
+                  TEXT untuk TikTok Stalker
+                -->
+
                 <input
                   id="urlInput"
                   class="url-input"
-                  type="url"
-                  inputmode="url"
+                  type="text"
+                  inputmode="text"
                   autocomplete="off"
                   spellcheck="false"
-                  placeholder="https://www.tiktok.com/..."
+                  placeholder="Masukkan link TikTok..."
                   required
                 />
-                <button class="paste-btn" id="pasteBtn" type="button">PASTE</button>
+
+                <button
+                  class="paste-btn"
+                  id="pasteBtn"
+                  type="button"
+                >
+                  PASTE
+                </button>
+
               </div>
 
-              <button class="download-btn" id="downloadBtn" type="submit">
-                <span class="btn-text">DOWNLOAD ↗</span>
+              <button
+                class="download-btn"
+                id="downloadBtn"
+                type="submit"
+              >
+                <span class="btn-text">
+                  DOWNLOAD ↗
+                </span>
               </button>
+
             </div>
 
             <div class="hint-row">
-              <span id="validationHint">Dukung link TikTok dari tiktok.com dan subdomain TikTok.</span>
-              <span>Powered by your scraper API</span>
+
+              <span id="validationHint">
+                Dukung link TikTok dari tiktok.com
+                dan subdomain TikTok.
+              </span>
+
+              <span>
+                Powered by your scraper API
+              </span>
+
             </div>
+
           </form>
 
-          <div id="resultStack" class="result-stack"></div>
+          <div
+            id="resultStack"
+            class="result-stack"
+          ></div>
+
         </div>
 
-        <div class="history" id="historyPanel">
+        <div
+          class="history"
+          id="historyPanel"
+        >
+
           <div class="history-head">
-            <strong>LOCAL HISTORY</strong>
-            <button class="history-clear" id="clearHistoryBtn" type="button">CLEAR</button>
+
+            <strong>
+              LOCAL HISTORY
+            </strong>
+
+            <button
+              class="history-clear"
+              id="clearHistoryBtn"
+              type="button"
+            >
+              CLEAR
+            </button>
+
           </div>
-          <div class="history-list" id="historyList">
-            <div class="empty-state">Belum ada riwayat. Hasil download sukses akan muncul di sini.</div>
+
+          <div
+            class="history-list"
+            id="historyList"
+          >
+
+            <div class="empty-state">
+              Belum ada riwayat.
+              Hasil download sukses akan muncul di sini.
+            </div>
+
           </div>
+
         </div>
+
       </section>
 
       <footer class="footer">
+
         <div class="footer-note">
+
           <span class="footer-dot"></span>
-          <span id="footerStatus">LUTLOAD ONLINE • CLIENT READY</span>
+
+          <span id="footerStatus">
+            LUTLOAD ONLINE • CLIENT READY
+          </span>
+
         </div>
-        <span>© LUTLOAD</span>
+
+        <span>
+          © LUTLOAD
+        </span>
+
       </footer>
+
     </main>
   </div>
 
-  <div class="toast" id="toast"></div>
+  <div
+    class="toast"
+    id="toast"
+  ></div>
 
-  <div class="closed-overlay" id="closedOverlay" aria-hidden="true">
+  <div
+    class="closed-overlay"
+    id="closedOverlay"
+    aria-hidden="true"
+  >
+
     <div class="closed-box">
-      <div class="closed-icon">⛔</div>
-      <h2>Site paused.</h2>
+
+      <div class="closed-icon">
+        ⛔
+      </div>
+
+      <h2>
+        Site paused.
+      </h2>
+
       <p id="closedMessage">
         Website sedang ditutup sementara oleh administrator.
       </p>
-      <button class="closed-refresh" id="refreshStatusBtn" type="button">CHECK AGAIN ↻</button>
+
+      <button
+        class="closed-refresh"
+        id="refreshStatusBtn"
+        type="button"
+      >
+        CHECK AGAIN ↻
+      </button>
+
     </div>
+
   </div>
 
   <script src="/app.js" defer></script>
+
 </body>
 </html>
