@@ -1,271 +1,305 @@
-// instagram.js
-// Instagram Downloader - API Faa AIO
-// Compatible dengan frontend LUTLOAD
+const axios = require('axios');
 
-const axios = require("axios");
+const API_ENDPOINT = 'https://api-faa.my.id/faa/aio';
 
-const API_ENDPOINT = "https://api-faa.my.id/faa/aio";
+const DEFAULT_HEADERS = {
+  'User-Agent':
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+  'Accept': 'application/json, text/javascript, */*; q=0.01'
+};
+
+function parseDurationToSeconds(duration) {
+  if (!duration) return 0;
+
+  if (typeof duration === 'number') {
+    return duration;
+  }
+
+  const match = String(duration).match(/(\d+)/);
+  return match ? Number(match[1]) : 0;
+}
 
 async function downloadInstagram(url) {
+  if (!url || typeof url !== 'string') {
+    throw new Error('Parameter url wajib diisi berupa string.');
+  }
+
+  const cleanUrl = url.trim();
+
+  if (!/^https?:\/\//i.test(cleanUrl)) {
+    throw new Error(
+      'Format URL tidak valid. Masukkan URL yang diawali http:// atau https://.'
+    );
+  }
+
   try {
-    // =========================
-    // VALIDASI URL
-    // =========================
-    if (!url || typeof url !== "string") {
-      throw new Error("URL Instagram wajib diisi.");
-    }
+    const apiUrl =
+      `${API_ENDPOINT}?url=${encodeURIComponent(cleanUrl)}`;
 
-    url = url.trim();
-
-    let parsedURL;
-
-    try {
-      parsedURL = new URL(url);
-    } catch {
-      throw new Error("URL Instagram tidak valid.");
-    }
-
-    if (!["http:", "https:"].includes(parsedURL.protocol)) {
-      throw new Error("URL harus menggunakan http atau https.");
-    }
-
-    const hostname = parsedURL.hostname.toLowerCase();
-
-    if (
-      !hostname.includes("instagram.com") &&
-      !hostname.includes("instagr.am")
-    ) {
-      throw new Error("URL bukan link Instagram.");
-    }
-
-    // =========================
-    // REQUEST API FAA
-    // =========================
-    const response = await axios.get(API_ENDPOINT, {
-      params: {
-        url
-      },
-      headers: {
-        Accept: "application/json",
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/153.0.0.0 Safari/537.36"
-      },
+    const response = await axios.get(apiUrl, {
+      headers: DEFAULT_HEADERS,
       timeout: 30000
     });
 
-    const api = response.data;
+    const body = response.data;
 
-    // =========================
-    // VALIDASI RESPONSE API
-    // =========================
-    if (!api || api.status !== true) {
+    if (!body || body.status !== true || !body.result) {
       throw new Error(
-        api?.message ||
-        api?.error ||
-        "API Faa gagal mengambil media Instagram."
+        body?.message || 'Gagal mengambil data dari API FAA.'
       );
     }
 
-    const data = api.result || api.data || {};
+    const d = body.result;
 
-    // =========================
-    // AMBIL DOWNLOADS
-    // =========================
-    let downloads = [];
+    /*
+     * ==========================================
+     * NORMALISASI DOWNLOAD
+     * ==========================================
+     */
 
-    if (Array.isArray(data.downloads)) {
-      downloads = data.downloads;
+    const downloads = [];
+    const seenUrls = new Set();
+
+    const rawDownloads = Array.isArray(d.downloads)
+      ? d.downloads
+      : [];
+
+    for (const item of rawDownloads) {
+      if (!item?.url) continue;
+      if (seenUrls.has(item.url)) continue;
+
+      let type = 'video';
+      let format = 'MP4';
+
+      if (item.type === 'audio') {
+        type = 'audio';
+        format = 'MP3';
+      } else if (item.type === 'image') {
+        type = 'image';
+        format = 'JPEG';
+      }
+
+      downloads.push({
+        type,
+        quality: item.quality || item.label || 'Default',
+        format,
+        resolution: item.resolution || null,
+        size: item.size || null,
+        size_bytes: item.size_bytes || null,
+        url: item.url
+      });
+
+      seenUrls.add(item.url);
     }
 
-    // Beberapa response API bisa menggunakan url
-    if (!downloads.length && Array.isArray(data.url)) {
-      downloads = data.url.map((item) => ({
-        url: item,
-        type: "video"
-      }));
+    /*
+     * ==========================================
+     * AMBIL MEDIA
+     * ==========================================
+     */
+
+    const videoDownloads = downloads.filter(
+      item => item.type === 'video'
+    );
+
+    const imageDownloads = downloads.filter(
+      item => item.type === 'image'
+    );
+
+    const audioDownloads = downloads.filter(
+      item => item.type === 'audio'
+    );
+
+    /*
+     * Frontend LUTLOAD lama membaca:
+     * result.url
+     *
+     * Jadi kita pertahankan struktur tersebut.
+     */
+
+    const mediaUrls = [
+      ...videoDownloads.map(item => item.url),
+      ...imageDownloads.map(item => item.url)
+    ].filter(Boolean);
+
+    /*
+     * Kalau API tidak mengisi downloads,
+     * coba gunakan thumbnail/video langsung.
+     */
+
+    if (!mediaUrls.length && d.thumbnail) {
+      mediaUrls.push(d.thumbnail);
     }
 
-    // =========================
-    // NORMALISASI DOWNLOAD URL
-    // =========================
-    const mediaURLs = downloads
-      .map((item) => {
-        if (typeof item === "string") {
-          return item;
-        }
-
-        return (
-          item?.url ||
-          item?.download ||
-          item?.link ||
-          item?.src ||
-          null
+    if (!mediaUrls.length && d.url) {
+      if (Array.isArray(d.url)) {
+        mediaUrls.push(
+          ...d.url.filter(Boolean)
         );
-      })
-      .filter(
-        (url) =>
-          typeof url === "string" &&
-          /^https?:\/\//i.test(url)
-      );
-
-    if (!mediaURLs.length) {
-      throw new Error(
-        "Media Instagram tidak ditemukan dari API Faa."
-      );
+      } else if (typeof d.url === 'string') {
+        mediaUrls.push(d.url);
+      }
     }
 
-    // =========================
-    // DETEKSI VIDEO / IMAGE
-    // =========================
-    const firstURL = mediaURLs[0];
-
-    const firstDownload = downloads[0] || {};
-
-    const firstType =
-      typeof firstDownload === "object"
-        ? String(
-            firstDownload.type ||
-            firstDownload.mime ||
-            firstDownload.format ||
-            ""
-          ).toLowerCase()
-        : "";
+    /*
+     * ==========================================
+     * TENTUKAN TIPE MEDIA
+     * ==========================================
+     */
 
     const isVideo =
-      firstType.includes("video") ||
-      firstType.includes("mp4") ||
-      /\.mp4(\?|$)/i.test(firstURL);
+      videoDownloads.length > 0 ||
+      !!d.video ||
+      !!d.video_nowm;
 
-    // =========================
-    // VIDEO NOWM
-    // =========================
-    const videoNowm =
-      data.video_nowm ||
-      data.video ||
-      data.nowm ||
-      (isVideo ? firstURL : null);
+    /*
+     * ==========================================
+     * OUTPUT YANG KOMPATIBEL DENGAN LUTLOAD
+     * ==========================================
+     */
 
-    // =========================
-    // COVER
-    // =========================
-    const cover =
-      data.cover ||
-      data.thumbnail ||
-      data.thumb ||
-      data.image ||
-      null;
-
-    // =========================
-    // METADATA
-    // =========================
-    const metadata = {
-      username:
-        data.author?.username ||
-        data.username ||
-        data.author ||
-        "instagram_user",
-
-      caption:
-        data.title ||
-        data.caption ||
-        data.description ||
-        "Instagram media",
-
-      like:
-        data.statistics?.likes ??
-        data.likes ??
-        "N/A",
-
-      comment:
-        data.statistics?.comments ??
-        data.comments ??
-        "N/A",
-
-      isVideo
-    };
-
-    // =========================
-    // FORMAT UNTUK LUTLOAD
-    // =========================
     return {
       status: true,
 
+      /*
+       * Struktur yang dipakai frontend lama
+       */
+      url: mediaUrls,
+
+      metadata: {
+        username:
+          d.author?.username ||
+          d.username ||
+          'Instagram',
+
+        caption:
+          (d.title || d.caption || '').trim() ||
+          'Instagram media',
+
+        like:
+          d.statistics?.likes ??
+          d.likes ??
+          'N/A',
+
+        comment:
+          d.statistics?.comments ??
+          d.comments ??
+          'N/A',
+
+        isVideo,
+
+        thumbnail:
+          d.thumbnail || null,
+
+        duration:
+          parseDurationToSeconds(d.duration),
+
+        platform:
+          d.platform || 'Instagram'
+      },
+
+      /*
+       * Data tambahan untuk frontend/API lain
+       */
       result: {
-        url: mediaURLs,
+        id: d.id || null,
 
-        metadata,
+        type: d.type || (
+          isVideo ? 'reel' : 'image'
+        ),
 
-        // Data tambahan tetap disediakan
-        // supaya bisa digunakan backend/frontend
-        // lain tanpa merusak struktur lama.
-        video_nowm: videoNowm,
+        title:
+          (d.title || d.caption || '').trim(),
 
-        video_wm:
-          data.video_wm ||
-          data.watermark ||
+        cover:
+          d.thumbnail || null,
+
+        video_nowm:
+          d.video_nowm ||
+          videoDownloads[0]?.url ||
           null,
 
-        cover,
+        video_wm:
+          d.video_wm || null,
 
-        author: {
-          username:
-            data.author?.username ||
-            data.username ||
-            "instagram_user",
+        audio:
+          audioDownloads[0]?.url || null,
 
-          nickname:
-            data.author?.nickname ||
-            data.author?.name ||
-            "Instagram"
-        },
-
-        statistics: {
-          likes:
-            data.statistics?.likes ??
-            data.likes ??
-            0,
-
-          comments:
-            data.statistics?.comments ??
-            data.comments ??
-            0,
-
-          shares:
-            data.statistics?.shares ??
-            data.shares ??
-            0,
-
-          views:
-            data.statistics?.views ??
-            data.views ??
-            0
-        },
+        images:
+          imageDownloads.map(
+            item => item.url
+          ),
 
         downloads,
 
+        duration_seconds:
+          parseDurationToSeconds(d.duration),
+
         _meta: {
-          original_platform: "instagram",
-          source: "api-faa.my.id",
-          from_cache: api.from_cache ?? false
+          original_platform:
+            d.platform || 'Unknown',
+
+          source:
+            'api-faa.my.id',
+
+          from_cache:
+            d.from_cache ?? false
         }
       }
     };
-  } catch (error) {
+
+  } catch (err) {
     console.error(
-      "[Instagram Downloader]",
-      error?.response?.data || error.message
+      '[Instagram Downloader]',
+      err.response?.data || err.message
     );
 
-    return {
-      status: false,
-      result: null,
-      error:
-        error?.response?.data?.message ||
-        error?.message ||
-        "Gagal mengambil media Instagram."
-    };
+    throw new Error(
+      `Downloader Error: ${err.message}`
+    );
   }
 }
+
+
+/*
+ * ==========================================
+ * CLI TEST
+ * ==========================================
+ */
+
+if (require.main === module) {
+  const args = process.argv.slice(2);
+
+  const inputUrl =
+    args[0] ||
+    'https://www.instagram.com/reel/Cxxxxxxxxxx/';
+
+  console.log(
+    `[INFO] Download: ${inputUrl}`
+  );
+
+  downloadInstagram(inputUrl)
+    .then(result => {
+      console.log(
+        JSON.stringify(result, null, 2)
+      );
+    })
+    .catch(err => {
+      console.error(
+        '[ERROR]',
+        err.message
+      );
+
+      process.exit(1);
+    });
+}
+
+
+/*
+ * ==========================================
+ * EXPORT
+ * ==========================================
+ */
 
 module.exports = {
   downloadInstagram
