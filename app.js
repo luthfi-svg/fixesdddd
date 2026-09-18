@@ -38,15 +38,17 @@ const platformConfig = {
     subtitle: 'Tempel link video / slide TikTok di bawah.',
     hint: 'Dukung link TikTok dari tiktok.com dan subdomain TikTok.'
   },
-  instagram: {
-    label: 'Instagram',
-    endpoint: '/api/instagram',
-    badge: 'INSTAGRAM READY',
-    placeholder: 'https://www.instagram.com/reel/...',
-    title: 'Instagram downloader',
-    subtitle: 'Tempel link Reel atau post video Instagram di bawah.',
-    hint: 'Gunakan link instagram.com/reel/... atau instagram.com/p/....'
-  }
+instagram: {
+  label: 'Instagram',
+  endpoint: '/api/instagram',
+  badge: 'INSTAGRAM OFFLINE',
+  placeholder: 'https://www.instagram.com/reel/...',
+  title: 'Instagram downloader',
+  subtitle: 'Layanan Instagram sementara tidak tersedia.',
+  hint: 'Instagram Downloader sedang mengalami gangguan.',
+  disabled: true,
+  disabledMessage:
+    'Instagram Downloader sedang mengalami gangguan dan sementara tidak dapat digunakan. Silakan coba kembali nanti.'
 };
 
 function escapeHtml(value) {
