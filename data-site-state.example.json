@@ -1,0 +1,17 @@
+{
+  "open": true,
+  "message": "Website aktif.",
+  "broadcast": {
+    "id": "contoh-broadcast-1",
+    "text": "Selamat datang di LUTLOAD! Ini contoh notifikasi broadcast.",
+    "updatedAt": "2026-09-19T00:00:00.000Z"
+  },
+  "updatedAt": "2026-09-19T00:00:00.000Z",
+  "source": "manual",
+  "notice": {
+    "id": "contoh-notice-1",
+    "type": "info",
+    "text": "Ini contoh notice website.",
+    "updatedAt": "2026-09-19T00:00:00.000Z"
+  }
+}
