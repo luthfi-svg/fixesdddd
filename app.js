@@ -335,7 +335,7 @@ function updatePlatform(platform) {
 
   resetHeroPreview();
 
-  document.title = `LUTLOAD — ${cfg.label}`;
+  document.title = `LUTSAVE — ${cfg.label}`;
 
   if (cfg.disabled) {
     els.urlInput.disabled = true;
