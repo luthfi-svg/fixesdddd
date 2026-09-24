@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#8b5cf6" />
+  <meta name="color-scheme" content="light" />
+  <meta name="description" content="LUTSAVE downloader free hd." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate icon" href="/favicon.svg" />
+  <title>LUTSAVE Downloader</title>
+
+  
+<link rel="stylesheet" href="/style.css" />
+
+  
+</head>
+
+<body>
+
+  <div class="app-shell">
+    <main class="browser">
+
+      <header class="browser-bar">
+        <div class="brand">
+          <div class="brand-mark">LL</div>
+
+          <div class="brand-copy">
+            <strong>LUTSAVE</strong>
+            <span>NEO BRUTALIST MEDIA LAB</span>
+          </div>
+        </div>
+
+        <div class="top-actions">
+          <div class="badge" id="platformBadge">
+            TIKTOK READY
+          </div>
+
+          <button
+            class="icon-btn"
+            id="historyBtn"
+            type="button"
+            title="Lihat riwayat"
+          >
+            ↺
+          </button>
+        </div>
+      </header>
+
+      <section class="hero">
+
+        <div class="hero-copy">
+
+          <div class="eyebrow">
+            DOWNLOAD WITHOUT THE BORING
+          </div>
+
+          <h1>
+            Drop link.<br>
+            Get media.
+          </h1>
+
+          <p class="hero-desc">
+            Pengunduh media sosial dengan tampilan neo-brutalist,
+            video player bawaan, riwayat lokal, TikTok Stalker,
+            dan Instagram Downloader.
+          </p>
+
+          <div class="hero-chip-row">
+            <span class="chip">NO LOGIN</span>
+            <span class="chip">VIDEO PLAYER</span>
+            <span class="chip">MOBILE READY</span>
+          </div>
+
+        </div>
+
+        <div class="preview-zone">
+
+          <div class="preview-card">
+
+            <div class="preview-top">
+
+              <div class="mini-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+              <span>
+                MEDIA PREVIEW / READY
+              </span>
+
+            </div>
+
+            <div
+              class="preview-media"
+              id="heroPreview"
+            >
+
+              <div class="preview-placeholder">
+
+                <div class="big-icon">
+                  ▶
+                </div>
+
+                <strong>
+                  Paste a social link
+                </strong>
+
+                <span>
+                  Video yang berhasil ditemukan
+                  akan tampil di player ini.
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section class="workspace">
+
+        <div class="tabs">
+
+          <button
+            class="tab active"
+            data-platform="tiktok"
+            type="button"
+          >
+            TIKTOK
+          </button>
+
+          <button
+            class="tab"
+            data-platform="stalktt"
+            type="button"
+          >
+            STALK TIKTOK
+          </button>
+
+          <button
+            class="tab"
+            data-platform="instagram"
+            type="button"
+          >
+            INSTAGRAM
+          </button>
+
+        </div>
+
+        <div class="downloader">
+
+          <div class="section-head">
+
+            <div>
+
+              <h2 id="formTitle">
+                TikTok downloader
+              </h2>
+
+              <p id="formSubtitle">
+                Tempel link video / slide TikTok di bawah.
+              </p>
+
+            </div>
+
+            <div
+              class="status-pill"
+              id="siteStatus"
+            >
+              SYSTEM: CHECKING...
+            </div>
+
+          </div>
+
+          <form id="downloadForm">
+
+            <div class="input-row">
+
+              <div class="input-shell">
+
+                <!--
+                  PENTING:
+                  type=text sengaja digunakan sebagai default.
+                  app.js akan mengubahnya menjadi:
+                  URL untuk TikTok
+                  TEXT untuk TikTok Stalker
+                -->
+
+                <input
+                  id="urlInput"
+                  class="url-input"
+                  type="text"
+                  inputmode="text"
+                  autocomplete="off"
+                  spellcheck="false"
+                  placeholder="Masukkan link TikTok..."
+                  required
+                />
+
+                <button
+                  class="paste-btn"
+                  id="pasteBtn"
+                  type="button"
+                >
+                  PASTE
+                </button>
+
+              </div>
+
+              <button
+                class="download-btn"
+                id="downloadBtn"
+                type="submit"
+              >
+                <span class="btn-text">
+                  DOWNLOAD ↗
+                </span>
+              </button>
+
+            </div>
+
+            <div class="hint-row">
+
+              <span id="validationHint">
+                Dukung link TikTok dari tiktok.com
+                dan subdomain TikTok.
+              </span>
+
+              <span>
+                Klick tombol ini
+              </span>
+
+            </div>
+
+          </form>
+
+          <div
+            id="resultStack"
+            class="result-stack"
+          ></div>
+
+        </div>
+
+        <div
+          class="history"
+          id="historyPanel"
+        >
+
+          <div class="history-head">
+
+            <strong>
+              LOCAL HISTORY
+            </strong>
+
+            <button
+              class="history-clear"
+              id="clearHistoryBtn"
+              type="button"
+            >
+              CLEAR
+            </button>
+
+          </div>
+
+          <div
+            class="history-list"
+            id="historyList"
+          >
+
+            <div class="empty-state">
+              Belum ada riwayat.
+              Hasil download sukses akan muncul di sini.
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <footer class="footer">
+
+        <div class="footer-note">
+
+          <span class="footer-dot"></span>
+
+          <span id="footerStatus">
+            LUTSAVE SIAP MEMBANTU
+          </span>
+
+        </div>
+
+        <span>
+          © LUTSAVE
+        </span>
+
+      </footer>
+
+    </main>
+  </div>
+
+  <div class="site-notice" id="notice" role="status" aria-live="polite">
+    <span class="notice-label">ℹ️ INFORMASI</span>
+    <span class="notice-text"></span>
+  </div>
+
+  <div
+    class="broadcast-notice"
+    id="broadcastNotice"
+    aria-live="polite"
+    aria-hidden="true"
+  >
+    <span class="broadcast-label">📢 BROADCAST LUTSAVE</span>
+
+    <p
+      class="broadcast-text"
+      id="broadcastText"
+    ></p>
+
+    <span
+      class="broadcast-time"
+      id="broadcastTime"
+    ></span>
+
+    <button
+      class="broadcast-close"
+      id="broadcastClose"
+      type="button"
+      aria-label="Tutup notifikasi"
+    >
+      ×
+    </button>
+  </div>
+
+  <div
+    class="toast"
+    id="toast"
+  ></div>
+
+  <div
+    class="closed-overlay"
+    id="closedOverlay"
+    aria-hidden="true"
+  >
+
+    <div class="closed-box">
+
+      <div class="closed-icon">
+        ⛔
+      </div>
+
+      <h2>
+        Site paused.
+      </h2>
+
+      <p id="closedMessage">
+        Website sedang ditutup sementara oleh administrator.
+      </p>
+
+      <button
+        class="closed-refresh"
+        id="refreshStatusBtn"
+        type="button"
+      >
+        CHECK AGAIN ↻
+      </button>
+
+    </div>
+
+  </div>
+  <script src="/app.js" defer></script>
+</body>
+</html>
