@@ -859,8 +859,8 @@ function setSiteOpen(open, message = '') {
 
   els.footerStatus.textContent =
     state.siteOpen
-      ? 'LUTLOAD ONLINE • CLIENT READY'
-      : 'LUTLOAD PAUSED • CONTROLLED BY TELEGRAM';
+      ? 'LUTSAVE ONLINE • CLIENT READY'
+      : 'LUTSAVE PAUSED • CONTROLLED BY TELEGRAM';
 
   els.closedOverlay.classList.toggle(
     'show',
