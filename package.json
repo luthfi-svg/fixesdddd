@@ -7,7 +7,7 @@
   "type": "commonjs",
   "scripts": {
     "dev": "vercel dev",
-    "check": "node --check config.js && node --check api/tiktok.js && node --check api/stalktt.js && node --check api/instagram.js && node --check api/telegram.js && node --check api/setup-telegram.js && node --check api/status.js && node --check api/visitor.js && node --check api/_lib/control.js && node --check app.js"
+    "check": "node --check config.js && node --check api/tiktok.js && node --check api/stalktt.js && node --check api/instagram.js && node --check api/telegram.js && node --check api/setup-telegram.js && node --check api/status.js && node --check api/visitor.js && node --check api/admin.js && node --check api/health.js && node --check api/_lib/control.js && node --check api/_lib/analytics.js && node --check app.js"
   },
   "engines": {
     "node": "22.x"
