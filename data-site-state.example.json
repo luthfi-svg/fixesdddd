@@ -1,0 +1,22 @@
+{
+  "open": true,
+  "message": "Website aktif.",
+  "broadcast": null,
+  "notice": null,
+  "aio": {
+    "enabled": true,
+    "features": {
+      "tiktok": true,
+      "instagram": true,
+      "youtube": true,
+      "facebook": true,
+      "twitter": true,
+      "pinterest": true,
+      "threads": true,
+      "reddit": true,
+      "other": true
+    }
+  },
+  "updatedAt": "2026-09-19T00:00:00.000Z",
+  "source": "manual"
+}
