@@ -300,7 +300,7 @@
         cursor.classList.add('is-hover', 'is-attached');
         updateTargetShape(target);
         const customText = target.getAttribute('data-cursor-text');
-        label.textContent = customText || (target.matches('a') ? 'OPEN' : target.matches('input, textarea') ? 'TYPE' : 'CLICK');
+        label.textContent = customText || (target.matches('a') ? '◉' : target.matches('input, textarea') ? 'TYPE' : '◉');
       }
 
       function detach() {
@@ -433,7 +433,7 @@
       }
 
       tabs.forEach(tab => {
-        tab.addEventListener('◉', () => {
+        tab.addEventListener('click', () => {
           switchAnimation(tab.dataset.platform);
         });
       });
